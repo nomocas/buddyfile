@@ -20,7 +20,9 @@ When master file is closed, buddy file is closed to. (also overridable in settin
 OSX only for the momment :
 
 ctrl+super+b :  	open or show buddy file but keep focus in master file
+
 ctrl+super+alt+b :	open or show buddy file and focus on it
+
 ctrl+super+shift+b : 	close buddy file 
 
 
