@@ -3,7 +3,7 @@ import sublime, sublime_plugin, os.path, re
 def get_buddy_path(fullPath):
 	fileFolder = os.path.dirname(fullPath)
 	fline = open(fullPath, encoding='utf-8').readline().rstrip()
-	matched = re.search('//\s*buddyfile:\s*(.*)', fline);
+	matched = re.search('.*\s*buddyfile:\s*(.*)', fline);
 	if matched:
 		buddyPath = os.path.join(fileFolder, matched.group(1))
 		hasBuddy = os.path.exists(buddyPath)
