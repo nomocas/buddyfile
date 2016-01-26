@@ -9,7 +9,7 @@ Really useful for by example loading (s)css file along with associated js file.
 Simply add a comment in master file at first line as :
 // buddyfile: ./my/relative/path/to/coupled/file
 
-And pointed file will be loaded and displayed in second pane  when master file is open 
+And pointed file will be loaded and displayed in second pane  when master file is opened 
 (buddy file is loaded by default but you could override that in settings)
 
 When master file is closed, buddy file is closed to. (also overridable in settings)
