@@ -1,0 +1,5 @@
+[
+  { "keys": ["ctrl+super+b"], "command": "check_buddyfile", "args": {} },
+  { "keys": ["ctrl+super+alt+b"], "command": "jump_to_buddyfile", "args": {} },
+  { "keys": ["ctrl+super+shift+b"], "command": "close_buddyfile", "args": {} },
+]
