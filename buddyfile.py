@@ -60,8 +60,6 @@ def close_buddy(masterPath):
 class BuddyfileListener(sublime_plugin.EventListener):
 	def __init__(self):
 		self._settings = sublime.load_settings('buddyfile.sublime-settings')
-		print('load on load : ', self._settings.get('check_buddy_on_load'))
-		print('close on close : ', self._settings.get('close_buddy_on_close'))
 
 	def on_load_async(self, view):
 		if self._settings.get('check_buddy_on_load'):
