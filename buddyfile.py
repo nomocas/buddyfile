@@ -5,6 +5,8 @@ def show_label(view, position):
 		occurence = view.find(position, 0)
 		if occurence:
 			view.show_at_center(occurence)
+			view.sel().clear()
+			view.sel().add(sublime.Region(occurence.begin()))
 	else:
 		sublime.set_timeout(lambda: show_label(view, position), 10)
 
@@ -15,8 +17,8 @@ def get_buddy_path(fullPath):
 	if matched:
 		buddyPath = os.path.normpath(os.path.join(fileFolder, matched.group(1)))
 		position = matched.group(2)
-		if position: # remove @
-			position = '--buddylabel: '+position[1:]
+		if position: 
+			position = '--buddylabel: ' + position[1:] # remove @
 		if os.path.exists(buddyPath):
 			return (buddyPath, position)
 	return (None, None)
