@@ -1,4 +1,4 @@
 {
-    "check_buddy_on_load": false,
+    "show_buddy_on_load": false,
     "close_buddy_on_close": true
 }

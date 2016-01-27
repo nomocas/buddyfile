@@ -73,7 +73,7 @@ class BuddyfileListener(sublime_plugin.EventListener):
 		self._settings = sublime.load_settings('buddyfile.sublime-settings')
 
 	def on_load_async(self, view):
-		if self._settings.get('check_buddy_on_load'):
+		if self._settings.get('show_buddy_on_load'):
 			show_buddy(view)
 
 	def on_close(self, view):
