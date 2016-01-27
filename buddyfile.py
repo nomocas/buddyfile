@@ -11,12 +11,13 @@ def show_label(view, position):
 def get_buddy_path(fullPath):
 	fileFolder = os.path.dirname(fullPath)
 	fline = open(fullPath, encoding='utf-8').readline().rstrip()
-	matched = re.search('--buddyfile:\s*([^\s@]+)\s*(@.+)?\s*', fline);
+	matched = re.search('--buddyfile:\s*([^\s@]+)\s*(@[^\s]+)?', fline);
 	if matched:
 		buddyPath = os.path.normpath(os.path.join(fileFolder, matched.group(1)))
 		position = matched.group(2)
 		if position: # remove @
 			position = '--buddylabel: '+position[1:]
+			print('position : ', position)
 		if os.path.exists(buddyPath):
 			return (buddyPath, position)
 	return (None, None)
@@ -29,9 +30,9 @@ def show_buddy(view, focusOnBuddy=0):
 		nbrCells = len(cells)
 		if nbrCells == 1: # create 2 cells
 			window.set_layout({
-				"cols": [0.0, 1.0],
-				"rows": [0.0, 0.5, 1.0],
-				"cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
+				cols: [0.0, 1.0],
+				rows: [0.0, 0.5, 1.0],
+				cells: [[0, 0, 1, 1], [0, 1, 1, 2]]
 			})
 
 		if window.active_group() != 0: # place master file in first cell
@@ -48,8 +49,6 @@ def show_buddy(view, focusOnBuddy=0):
 			show_label(buddyView, position)
 		if not focusOnBuddy:
 			window.focus_view(view)
-
-
 
 def close_buddy(masterPath):
 	buddyPath, position = get_buddy_path(masterPath)
@@ -73,7 +72,7 @@ class BuddyfileListener(sublime_plugin.EventListener):
 		self._settings = sublime.load_settings('buddyfile.sublime-settings')
 
 	def on_load_async(self, view):
-		if self._settings.get('check_buddy_on_load'):
+		if self._settings.get('show_buddy_on_load'):
 			show_buddy(view)
 
 	def on_close(self, view):
@@ -83,17 +82,14 @@ class BuddyfileListener(sublime_plugin.EventListener):
 				close_buddy(fullPath)
 
 class ShowBuddyfileCommand(sublime_plugin.WindowCommand):
-	
 	def run(self):
 		show_buddy(self.window.active_view())
 
 class JumpToBuddyfileCommand(sublime_plugin.WindowCommand):
-	
 	def run(self):
 		show_buddy(self.window.active_view(), 1)	
 
 class CloseBuddyfileCommand(sublime_plugin.WindowCommand):
-	
 	def run(self):
 		fullPath = self.window.active_view().file_name()
 		if fullPath:
