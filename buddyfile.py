@@ -17,7 +17,6 @@ def get_buddy_path(fullPath):
 		position = matched.group(2)
 		if position: # remove @
 			position = '--buddylabel: '+position[1:]
-			print('position : ', position)
 		if os.path.exists(buddyPath):
 			return (buddyPath, position)
 	return (None, None)
