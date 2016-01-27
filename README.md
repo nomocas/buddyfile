@@ -2,14 +2,14 @@
 
 Sublime Text 3 plugin for displaying coupled files in two panes.
 
-Really useful for by example loading (s)css file along with associated js file.
+Really useful for by example loading (s)css file along with associated js/html file.
 
 ## Usage
 
 Simply add a comment in master file at first line as :
 // --buddyfile: ./my/relative/path/to/coupled/file
 
-(should work with # comments)
+(should work with # or html comments)
 
 And pointed file will be loaded and displayed in second pane  when master file is opened 
 (buddy file is loaded by default but you could override that in settings)
