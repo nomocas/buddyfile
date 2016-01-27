@@ -21,7 +21,7 @@ def get_buddy_path(fullPath):
 			return (buddyPath, position)
 	return (None, None)
 
-def check_buddy(view, focusOnBuddy=0):
+def show_buddy(view, focusOnBuddy=0):
 	buddyPath, position = get_buddy_path(view.file_name())
 	if buddyPath:
 		window = view.window()
@@ -74,7 +74,7 @@ class BuddyfileListener(sublime_plugin.EventListener):
 
 	def on_load_async(self, view):
 		if self._settings.get('check_buddy_on_load'):
-			check_buddy(view)
+			show_buddy(view)
 
 	def on_close(self, view):
 		if self._settings.get('close_buddy_on_close'):
@@ -85,12 +85,12 @@ class BuddyfileListener(sublime_plugin.EventListener):
 class CheckBuddyfileCommand(sublime_plugin.WindowCommand):
 	
 	def run(self):
-		check_buddy(self.window.active_view())
+		show_buddy(self.window.active_view())
 
 class JumpToBuddyfileCommand(sublime_plugin.WindowCommand):
 	
 	def run(self):
-		check_buddy(self.window.active_view(), 1)	
+		show_buddy(self.window.active_view(), 1)	
 
 class CloseBuddyfileCommand(sublime_plugin.WindowCommand):
 	
