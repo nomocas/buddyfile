@@ -1,19 +1,28 @@
 import sublime, sublime_plugin, os.path, re
 
+def show_label(view, position):
+	if not view.is_loading():
+		occurence = view.find(position, 0)
+		if occurence:
+			view.show_at_center(occurence)
+	else:
+		sublime.set_timeout(lambda: show_label(view, position), 10)
+
 def get_buddy_path(fullPath):
 	fileFolder = os.path.dirname(fullPath)
 	fline = open(fullPath, encoding='utf-8').readline().rstrip()
-	matched = re.search('.*\s*buddyfile:\s*(.*)', fline);
+	matched = re.search('--buddyfile:\s*([^\s@]+)\s*(@.+)?\s*', fline);
 	if matched:
-		buddyPath = os.path.join(fileFolder, matched.group(1))
-		hasBuddy = os.path.exists(buddyPath)
-		if hasBuddy:
-			return buddyPath
-		else:
-			return None
+		buddyPath = os.path.normpath(os.path.join(fileFolder, matched.group(1)))
+		position = matched.group(2)
+		if position: # remove @
+			position = '--buddylabel: '+position[1:]
+		if os.path.exists(buddyPath):
+			return (buddyPath, position)
+	return (None, None)
 
 def check_buddy(view, focusOnBuddy=0):
-	buddyPath = get_buddy_path(view.file_name())
+	buddyPath, position = get_buddy_path(view.file_name())
 	if buddyPath:
 		window = view.window()
 		cells = window.get_layout()['cells']
@@ -34,14 +43,16 @@ def check_buddy(view, focusOnBuddy=0):
 
 		# place buddy file in second cell
 		window.set_view_index(buddyView, 1, 0)
-		if focusOnBuddy:
-			window.focus_view(buddyView)
-		else:
+		window.focus_view(buddyView) # force focus for preventing bug with mouse click
+		if position:
+			show_label(buddyView, position)
+		if not focusOnBuddy:
 			window.focus_view(view)
 
 
+
 def close_buddy(masterPath):
-	buddyPath = get_buddy_path(masterPath)
+	buddyPath, position = get_buddy_path(masterPath)
 	if buddyPath:
 		window = sublime.active_window()
 		buddyView = window.find_open_file(buddyPath)
