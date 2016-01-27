@@ -7,12 +7,25 @@ Really useful for by example loading (s)css file along with associated js file.
 ## Usage
 
 Simply add a comment in master file at first line as :
-// buddyfile: ./my/relative/path/to/coupled/file
+// --buddyfile: ./my/relative/path/to/coupled/file
+
+(should work with # comments)
 
 And pointed file will be loaded and displayed in second pane  when master file is opened 
 (buddy file is loaded by default but you could override that in settings)
 
 When master file is closed, buddy file is closed to. (also overridable in settings)
+
+
+## Target labels
+
+We could add labels in buddyfile and point to it in master file :
+
+At top of master file : `// --buddyfile: ./my/path @myLabel`
+
+Somewhere in buddy file : `// --buddylabel: myLabel`
+
+When buddy opens, it will scrolls to label.
 
 
 ## Keymap
