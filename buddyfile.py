@@ -29,9 +29,9 @@ def show_buddy(view, focusOnBuddy=0):
 		nbrCells = len(cells)
 		if nbrCells == 1: # create 2 cells
 			window.set_layout({
-				cols: [0.0, 1.0],
-				rows: [0.0, 0.5, 1.0],
-				cells: [[0, 0, 1, 1], [0, 1, 1, 2]]
+				"cols": [0.0, 1.0],
+				"rows": [0.0, 0.5, 1.0],
+				"cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
 			})
 
 		if window.active_group() != 0: # place master file in first cell
